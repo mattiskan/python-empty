@@ -1,9 +1,15 @@
 venv = venv/bin
 
-.PHONY: test
+.PHONY: test, clean
 
 test: $(venv)
 	$(venv)/py.test
+
+clean:
+	rm -rf venv/
+	find . -name "*.pyc" -delete
+	find . -name "__pycache__" -delete
+
 
 $(venv): requirements.txt
 	test -d venv || virtualenv venv
