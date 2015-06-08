@@ -1,0 +1,9 @@
+# python
+*.pyc
+venv/
+__pycache__/
+
+# emacs
+*~
+.\#*
+\#*\#
