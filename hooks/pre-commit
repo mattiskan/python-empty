@@ -1,0 +1,8 @@
+#!/bin/sh
+
+make test
+if [ $? -gt 0 ]; then
+    echo "Commit aborted due to failing tests";
+    exit 1
+fi
+
