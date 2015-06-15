@@ -1,3 +1,4 @@
+HOOKS = $(wildcard hooks/*)
 venv = venv/bin
 
 .PHONY: build, test, clean
@@ -6,16 +7,13 @@ build: .build
 
 test: .build-test
 	$(venv)/py.test
+	@echo "Checking syntax "
+	$(venv)/flake8 --exclude=venv/ .
 
 clean:
 	rm -rf venv/
-	rm -f .hooks
 	find . -name "*.pyc" -delete
 	find . -name "__pycache__" -delete
-
-install-hooks:
-	rm .hooks
-	make .hooks
 
 # === build commands: ===
 .build: .hooks $(venv) requirements.txt
@@ -29,8 +27,8 @@ install-hooks:
 $(venv):
 	test -d venv || virtualenv venv
 
-.hooks: hooks
-	ln -s -f ../../hooks/* .git/hooks/
+.hooks: $(HOOKS)
+	ln -f $(HOOKS) .git/hooks
 	touch $@
 
 .SILENT: install-hooks
