@@ -2,9 +2,9 @@ venv = venv/bin
 
 .PHONY: build, test, clean
 
-build: .hooks $(venv)
+build: .build
 
-test: build
+test: .build-test
 	$(venv)/py.test
 
 clean:
@@ -18,12 +18,19 @@ install-hooks:
 	make .hooks
 
 # === build commands: ===
-$(venv): requirements.txt
-	test -d venv || virtualenv venv
+.build: .hooks $(venv) requirements.txt
 	$(venv)/pip install -r requirements.txt
+	touch $@
+
+.build-test: .build requirements-dev.txt
+	$(venv)/pip install -r requirements-dev.txt
+	touch $@
+
+$(venv):
+	test -d venv || virtualenv venv
 
 .hooks: hooks
-	touch .hooks
 	ln -s -f ../../hooks/* .git/hooks/
+	touch $@
 
 .SILENT: install-hooks

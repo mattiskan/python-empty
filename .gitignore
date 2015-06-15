@@ -1,5 +1,4 @@
-# project specific
-.hooks
+.*
 
 # python
 *.pyc
