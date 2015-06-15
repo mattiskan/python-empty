@@ -11,6 +11,7 @@ test: .build-test
 
 clean:
 	rm -rf venv/
+	rm -f .hooks .build .build-test
 	find . -name "*.pyc" -delete
 	find . -name "__pycache__" -delete
 
