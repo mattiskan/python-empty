@@ -22,7 +22,7 @@ clean:
 
 .build-test: .build requirements-dev.txt
 	$(venv)/pip install -r requirements-dev.txt
-	touch $@
+	touch $@ .build
 
 $(venv):
 	test -d venv || virtualenv venv
