@@ -7,7 +7,6 @@ build: .build
 
 test: .build-test
 	$(venv)/py.test
-	@echo "Checking syntax "
 	$(venv)/flake8 --exclude=venv/ .
 
 clean:
